@@ -2,6 +2,29 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+class Product(models.Model):
+    name = models.CharField(max_length=180)
+    slug = models.SlugField(max_length=200, unique=True)
+    category = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    features = models.JSONField(default=list, blank=True)
+    price = models.DecimalField(max_digits=12, decimal_places=2)
+    old_price = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    currency = models.CharField(max_length=3, default='XAF')
+    stock = models.PositiveIntegerField(default=0)
+    badge = models.CharField(max_length=40, blank=True)
+    image_url = models.URLField(max_length=500, blank=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.name
+
+
 class CustomerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='customer_profile')
     phone = models.CharField(max_length=30, blank=True)

@@ -28,5 +28,26 @@ CREATE TABLE IF NOT EXISTS mboa_accounts_purchase (
 CREATE INDEX IF NOT EXISTS mboa_purchase_user_created_idx
     ON mboa_accounts_purchase (user_id, created_at DESC);
 
+CREATE TABLE IF NOT EXISTS mboa_accounts_product (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(180) NOT NULL,
+    slug VARCHAR(200) NOT NULL UNIQUE,
+    category VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL DEFAULT '',
+    features JSONB NOT NULL DEFAULT '[]'::jsonb,
+    price NUMERIC(12, 2) NOT NULL CHECK (price >= 0),
+    old_price NUMERIC(12, 2) CHECK (old_price IS NULL OR old_price >= 0),
+    currency VARCHAR(3) NOT NULL DEFAULT 'XAF',
+    stock INTEGER NOT NULL DEFAULT 0 CHECK (stock >= 0),
+    badge VARCHAR(40) NOT NULL DEFAULT '',
+    image_url VARCHAR(500) NOT NULL DEFAULT '',
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS mboa_product_category_active_idx
+    ON mboa_accounts_product (category, is_active);
+
 -- Never store raw passwords in application tables.
 -- Django stores password hashes in auth_user.password.
