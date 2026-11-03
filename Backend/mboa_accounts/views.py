@@ -3,6 +3,8 @@ import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from django.middleware.csrf import get_token
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
 
@@ -78,3 +80,9 @@ def history(request):
         return JsonResponse({'error': 'Connexion requise pour consulter votre historique.'}, status=401)
     purchases = request.user.purchases.values('reference', 'total_amount', 'currency', 'status', 'items', 'created_at')
     return JsonResponse({'purchases': list(purchases)}, safe=False)
+
+
+@ensure_csrf_cookie
+@require_GET
+def csrf(request):
+    return JsonResponse({'csrfToken': get_token(request)})
