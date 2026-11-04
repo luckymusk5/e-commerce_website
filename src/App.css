@@ -151,6 +151,10 @@ footer { margin-top: 44px; padding-block: 27px; border-top: 1px solid var(--line
 @media (max-width: 600px) { .chatbot { right: 16px; bottom: 16px; }.chatbot-panel { right: -2px; bottom: 68px; height: 410px; } }
 
 .admin-page { min-height: 100vh; background: #f3f5ef; }
+.admin-header .brand > span:last-child, .auth-header .brand > span:last-child, footer .brand > span:last-child { font-size: 0; }
+.admin-header .brand > span:last-child::after, .auth-header .brand > span:last-child::after, footer .brand > span:last-child::after { content: 'pkboutique'; font-size: 21px; }
+.admin-header .brand-mark, .auth-header .brand-mark, footer .brand-mark { font-size: 0; }
+.admin-header .brand-mark::after, .auth-header .brand-mark::after, footer .brand-mark::after { content: 'P'; font-size: 19px; }
 .admin-header { display: flex; align-items: center; justify-content: space-between; min-height: 76px; padding: 0 max(32px, calc((100% - 1180px) / 2)); border-bottom: 1px solid var(--line); background: #fff; color: var(--muted); font-size: 11px; }
 .admin-lock { color: var(--green); margin-right: 5px; }.admin-back { margin-left: 22px; border: 0; color: var(--green); background: transparent; cursor: pointer; font-size: 11px; }
 .admin-main { padding-block: 55px 85px; }.admin-title { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 32px; }.admin-title h1 { margin: 10px 0 8px; font-size: 42px; letter-spacing: -1px; }.admin-title p { color: var(--muted); font-size: 12px; }.admin-django-link { padding: 11px 14px; border: 1px solid var(--green); border-radius: 4px; color: var(--green); background: #fff; font-size: 11px; font-weight: 700; }
